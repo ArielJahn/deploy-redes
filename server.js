@@ -1,7 +1,7 @@
 const http = require('http');
 const os = require('os');
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3030;
 
 function getServerInfo() {
   const interfaces = os.networkInterfaces();

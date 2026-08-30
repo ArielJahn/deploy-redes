@@ -1,17 +1,17 @@
 # Aplicação de teste para deploy na AWS
 
-Este projeto é uma aplicação mínima para validar um deploy em instâncias AWS, como EC2, Elastic Beanstalk ou containers ECS/ECR.
+Este projeto é uma aplicação mínima para testar um deploy simples na AWS, sem Docker, sem frameworks e sem dependências extras.
 
 ## O que a aplicação mostra
 
-A página inicial exibe informações do servidor em execução, incluindo:
+A página inicial exibe dados do servidor em execução, incluindo:
 
 - hostname
-- sistema operacional e arquitetura
-- versão do sistema
+- sistema operacional
+- arquitetura
 - uptime
 - memória total e livre
-- quantidade de CPUs e modelo
+- CPUs
 - IPs detectados
 - versão do Node.js
 - PID do processo
@@ -23,33 +23,41 @@ npm install
 npm start
 ```
 
-Em seguida, abra:
+Acesse:
 
-- http://localhost:3000
-- http://localhost:3000/api/info
-- http://localhost:3000/health
+- http://localhost:3030/
+- http://localhost:3030/api/info
+- http://localhost:3030/health
 
-## Como deployar na AWS
+## Como deployar na AWS sem Docker
 
 ### EC2
 
-1. Conecte-se na instância.
-2. Instale Node.js.
-3. Faça upload do código para a instância.
-4. Execute:
+1. Crie uma instância EC2 com Ubuntu ou Amazon Linux.
+2. Conecte-se via SSH.
+3. Instale o Node.js:
+
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+```
+
+4. Envie o código para a instância.
+5. Dentro da pasta do projeto, execute:
 
 ```bash
 npm install
-npm start
+PORT=3030 npm start
 ```
 
-### Docker
+6. Para manter a aplicação rodando em background:
 
 ```bash
-docker build -t aws-server-info-app .
-docker run -p 3000:3000 aws-server-info-app
+PORT=3030 nohup npm start > app.log 2>&1 &
 ```
+
+7. Abra a porta 3030 no Security Group da EC2.
 
 ## Observação
 
-A aplicação foi criada para ser simples, leve e fácil de testar em qualquer ambiente AWS.
+Esta versão foi pensada para ser o mínimo funcional: Node.js puro, sem Docker, sem containers, pronta para validar um deploy simples na AWS na porta 3030.
