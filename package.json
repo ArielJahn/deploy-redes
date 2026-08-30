@@ -1,0 +1,11 @@
+{
+  "name": "aws-server-info-app",
+  "version": "1.0.0",
+  "description": "Aplicação simples para testar deploy em AWS com informações do servidor",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "license": "MIT"
+}
